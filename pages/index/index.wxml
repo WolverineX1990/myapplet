@@ -1,0 +1,12 @@
+<!--index.wxml-->
+<view class="container">
+	<view class="topic" bindtap="navToTopic" data-id="{{topic.id}}" wx:for="{{topics}}" wx:key="id" wx:for-index="idx" wx:for-item="topic">
+		<image class="head-img" src="{{topic.author.avatar_url}}"></image>
+		<view wx:if="{{topic.good}}" class="tag top">置顶</view>
+		<view wx:if="{{!topic.good}}" class="tag">问答</view>
+		<view class="info">
+			<view class="title ellipsis">{{topic.title}}</view>
+			<view class="desc clearfix"><view class="fl">{{topic.reply_count}}/{{topic.visit_count}}</view><view class="fr">{{topic.time}}</view></view>
+		</view>
+	</view>
+</view>

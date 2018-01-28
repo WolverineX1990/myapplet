@@ -1,0 +1,47 @@
+{
+	"description": "项目配置文件。",
+	"setting": {
+		"urlCheck": true,
+		"es6": true,
+		"postcss": true,
+		"minified": true,
+		"newFeature": true
+	},
+	"compileType": "miniprogram",
+	"libVersion": "1.6.4",
+	"appid": "wx77c4db747afa66bf",
+	"projectname": "%E4%B8%AA%E4%BA%BA%E7%89%88",
+	"condition": {
+		"search": {
+			"current": -1,
+			"list": []
+		},
+		"conversation": {
+			"current": -1,
+			"list": []
+		},
+		"miniprogram": {
+			"current": -1,
+			"list": [
+				{
+					"id": -1,
+					"name": "topic",
+					"pathName": "pages/topic/index",
+					"query": "id=58eee565a92d341e48cfe7fc"
+				},
+				{
+					"id": -1,
+					"name": "setting",
+					"pathName": "pages/setting/index",
+					"query": ""
+				},
+				{
+					"id": -1,
+					"name": "message",
+					"pathName": "pages/setting/messages/index",
+					"query": ""
+				}
+			]
+		}
+	}
+}

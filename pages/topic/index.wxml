@@ -1,0 +1,6 @@
+<!--index.wxml-->
+<view class="container">
+	<view class="title">{{topic.title}}</view>
+	<!-- <view class="content"><rich-text nodes="{{topic.content}}"></rich-text></view> -->
+	<button bindtap="test">扫一扫</button>
+</view>
