@@ -1,5 +1,4 @@
 var User = require('../../security/user');
-var topicService = require('../../services/topicService');
 const app = getApp();
 Page({
     data: {

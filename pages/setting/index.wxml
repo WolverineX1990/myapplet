@@ -1,7 +1,0 @@
-<view class="container">
-	<view class="head-bg"><image class="head-img" src="{{avatarUrl}}"></image></view>
-	<view class="info">
-		<view class="label">关联CnodeJs</view>
-		<view></view>
-	</view>
-</view>

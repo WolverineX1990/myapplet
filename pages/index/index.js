@@ -1,53 +1,55 @@
 var User = require('../../security/user');
-var topicService = require('../../services/topicService');
 const app = getApp();
+const methods = [{
+
+}];
 Page({
     data: {
-
+    	types : ['易企秀H5', '兔展H5', '兔展单页', 'MAKAH5', 'MAKA单页', 'MAKA视频'],
+		selectType: 0
     },
-    navToTopic: function(e) {
-    	wx.navigateTo({url: '../topic/index?id='+e.currentTarget.dataset.id});
-    },
+    bindTypeChange: function(event) {
+		var selectType = event.detail.value;
+		this.setData({selectType: selectType});
+	},
+	submit() {
+		var user = app.globalData.user;
+		wx.request({
+	      url: 'https://api.it120.cc/gooking/pay/wxapp/get-pay-data',
+	      data: {
+	        token: user.token,
+	        money:0.1,
+	        remark:"支付测试",
+	        payName:"小程序支付测试"
+	      },
+	      success: function(res){
+	        console.log('api result:');
+	        console.log(res.data);
+	        if(res.data.code == 0){
+	          // 发起支付
+	          wx.requestPayment({
+	            timeStamp:res.data.data.timeStamp,
+	            nonceStr:res.data.data.nonceStr,
+	            package:'prepay_id=' + res.data.data.prepayId,
+	            signType:'MD5',
+	            paySign:res.data.data.sign,
+	            fail:function (aaa) {
+	              wx.showToast({title: '支付失败'})
+	            },
+	            success:function () {
+	              wx.showToast({title: '支付成功'})
+	            }
+	          })
+	        } else {
+	          wx.showToast({title: '服务器忙' + res.data.code})
+	        }
+	      }
+	    })
+	},
     onLoad: function () {
     	var user = app.globalData.user = new User.user();
     	user.login()
-	        .then(()=>user.getAccessToken());
-	    topicService.getTopics()
-	    		.then(res=>{
-	    			var topics = res.data.data;
-	    			var now = Date.now();
-	    			topics.forEach(res=> {
-	    				var time = new Date(res.last_reply_at);
-	    				res.time = getTime(now - time.getTime())
-	    			});
-	    			this.setData({
-	    				topics
-	    			});
-	    		});
-
-	    wx.requestPayment({
-			timeStamp: '',
-			nonceStr: '',
-			package: '',
-			signType: 'MD5',
-			paySign: '',
-			success:function(res){},
-			fail:function(res){},
-			complete:function(res){}
-		});
+	        .then(()=>user.getAccessToken())
+	        .then(res=>user.token = res.data.data.token);
     }
-})
-
-function getTime(time) {
-	var minut = Math.ceil(time/1000/60);
-	if(minut<60) {
-		return minut + '分钟前';
-	}
-
-	var hour = Math.ceil(minut/60);
-	if(hour<24) {
-		return hour + '小时前';
-	}
-
-	return Math.ceil(hour/24) + '天前';
-}
+});
