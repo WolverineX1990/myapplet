@@ -1,30 +1,13 @@
 <!--index.wxml-->
 <view class="container">
-	<picker mode="selector" bindchange="bindTypeChange" value="{{selectType}}" range="{{types}}">
-	    <view class="item">
-		    <view class="label">平台</view>
-		    <view class="select">
-		      {{types[selectType]}}
-		    </view>
-		    <image class="sel-icon" src="http://system-shape.img-cn-beijing.aliyuncs.com/svg/2017092154515654.svg"></image>
-	    </view>
-	</picker>
-	<view class="item">
-	 	例如()
-	</view>
-	<view class="item">
-		<view class="label">模板地址</view>
-		<view><input class="input" bindinput="confirmGroomName" placeholder="请输入模板地址" /></view>
-	</view>
-	<view class="item">
-		<view class="label">账号</view>
-		<view><input class="input" bindinput="confirmGroomName" placeholder="请输入账号" /></view>
-	</view>
-	<view class="item">
-		<view class="label">密码</view>
-		<view><input class="input" bindinput="confirmGroomName" placeholder="请输入密码" /></view>
-	</view>
-	<view class="item">
-		<button bindtap="submit" class="sub-btn">提交</button>
-	</view>
+	<canvas
+    class="cropper"
+    disable-scroll="true"
+    bindtouchstart="touchStart"
+    bindtouchmove="touchMove"
+    bindtouchend="touchEnd"
+    canvas-id="cropper">
+  </canvas>
+  <button bindtap="selectPhoto">选择图片</button>
+  <button bindtap="save">保存</button>
 </view>

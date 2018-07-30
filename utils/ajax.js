@@ -1,5 +1,3 @@
-var app = getApp();
-
 /**
  * [ajax 不带token的ajax请求]
  * @param  {[string]} options.url    [请求地址]
@@ -7,7 +5,7 @@ var app = getApp();
  * @param  {[string]} options.method [请求类型]
  * @return {[promise]}                [description]
  */
-function ajax({url, data, method, header}) {
+function ajax({url, data, method, header, responseType}) {
 	return new Promise(function (resolve, reject) {
 		function success(res) {
 			resolve(res);
@@ -21,6 +19,7 @@ function ajax({url, data, method, header}) {
 			data,
 			method,
 			success,
+			responseType,
 			fail
 		});
 	});

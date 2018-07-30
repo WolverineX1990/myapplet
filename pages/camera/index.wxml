@@ -1,4 +1,8 @@
 <view class="container">
-	<camera class="camera" device-position="front" flash="off" binderror="error"></camera>
-  <image src="{{src}}"></image>
+	<camera class="camera" device-position="back" flash="off" binderror="error">
+		<cover-view>
+			<cover-image class="canvas" src="{{canvasImg}}"></cover-image>
+		</cover-view>
+	</camera>
+	<canvas class="canvas" style="opacity: 0" canvas-id="firstCanvas"></canvas>
 </view>

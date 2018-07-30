@@ -1,55 +1,77 @@
-var User = require('../../security/user');
-const app = getApp();
-const methods = [{
+import WeCropper from '../../common/cropper/index.js'
+let User = require('../../security/user');
 
-}];
+const app = getApp();
+const device = wx.getSystemInfoSync();
+
 Page({
-    data: {
-    	types : ['易企秀H5', '兔展H5', '兔展单页', 'MAKAH5', 'MAKA单页', 'MAKA视频'],
-		selectType: 0
-    },
-    bindTypeChange: function(event) {
-		var selectType = event.detail.value;
-		this.setData({selectType: selectType});
+  data: {
+      
+  },
+  selectPhoto() {
+    const self = this
+
+    wx.chooseImage({
+      count: 1, // 默认9
+      success (res) {
+        const src = res.tempFilePaths[0];
+        self.wecropper.pushOrign(src);
+      }
+    });
+  },
+  save() {
+    this.wecropper.getCropperImage(function(file) {
+      wx.saveImageToPhotosAlbum({
+        filePath: file,
+        success: function() {
+
+        },
+        fail: function() {
+          
+        }
+      });
+    });
+  },
+	touchStart(e) {
+    this.wecropper.touchStart(e);
 	},
-	submit() {
-		var user = app.globalData.user;
-		wx.request({
-	      url: 'https://api.it120.cc/gooking/pay/wxapp/get-pay-data',
-	      data: {
-	        token: user.token,
-	        money:0.1,
-	        remark:"支付测试",
-	        payName:"小程序支付测试"
-	      },
-	      success: function(res){
-	        console.log('api result:');
-	        console.log(res.data);
-	        if(res.data.code == 0){
-	          // 发起支付
-	          wx.requestPayment({
-	            timeStamp:res.data.data.timeStamp,
-	            nonceStr:res.data.data.nonceStr,
-	            package:'prepay_id=' + res.data.data.prepayId,
-	            signType:'MD5',
-	            paySign:res.data.data.sign,
-	            fail:function (aaa) {
-	              wx.showToast({title: '支付失败'})
-	            },
-	            success:function () {
-	              wx.showToast({title: '支付成功'})
-	            }
-	          })
-	        } else {
-	          wx.showToast({title: '服务器忙' + res.data.code})
-	        }
-	      }
-	    })
-	},
-    onLoad: function () {
-    	var user = app.globalData.user = new User.user();
-    	user.login()
-	        .then(()=>user.getAccessToken())
-	        .then(res=>user.token = res.data.data.token);
+  touchMove(e) {
+    this.wecropper.touchMove(e);
+  },
+  touchEnd(e) {
+    this.wecropper.touchEnd(e);
+  },
+  onLoad: function () {
+    let cropperOpt = {
+      id: 'cropper',
+      width: device.windowWidth,
+      height: device.windowWidth,
+      scale: 2.5,
+      zoom: 8
     }
+    let self = this;
+    new WeCropper(cropperOpt)
+      .on('ready', function (ctx) {
+        console.log(`wecropper is ready for work!`)
+        self.wecropper.pushOrign('http://tmp/wx77c4db747afa66bf.o6zAJs1bgSRT5M6YCwgd636i2Twc.m2kKkCRQ0tIC07ec9b6c40c2f484a765ab9fb79f538c.png');
+      })
+      .on('beforeImageLoad', (ctx) => {
+        console.log(`before picture loaded, i can do something`);
+        console.log(`current canvas context:`, ctx);
+        wx.showToast({
+          title: '上传中',
+          icon: 'loading',
+          duration: 20000
+        })
+      })
+      .on('beforeDraw', ctx => {
+        ctx.fillStyle="#FF0000";
+        ctx.fillRect(0, 0, 100, 100);
+      })
+      .on('imageLoad', (ctx) => {
+        console.log(`picture loaded`);
+        console.log(`current canvas context:`, ctx);
+        wx.hideToast();
+      })
+  }
 });

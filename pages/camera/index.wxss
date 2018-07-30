@@ -2,3 +2,8 @@
   width: 750rpx;
   height: 800rpx;
 }
+
+.canvas {
+  width: 750rpx;
+  height: 800rpx;
+}

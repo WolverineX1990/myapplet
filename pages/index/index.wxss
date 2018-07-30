@@ -2,55 +2,7 @@ page {
 	background: rgba(0,0,0,0.04);
 }
 
-.item {
-	display: flex;
-	flex-direction: row;
-	background: #fff;
-	line-height: 104rpx;
-	width: 750rpx;
-}
-
-.input {
-	font-size: 30rpx;
-	margin: 10rpx 0;
-	height: 84rpx;
-	width: 510rpx;
-	text-align: right;
-	padding-right: 40rpx;
-	margin-left: 10rpx;
-	border: 1rpx solid rgba(0, 0, 0, .42);
-}
-
-.select {
-	width: 530rpx;
-	text-align: right;
-	padding-right: 0;
-	font-size: 30rpx;
-	color: rgba(0, 0, 0, .84);
-}
-
-.sel-icon {
-	width: 40rpx;
-	height: 40rpx;
-	margin-top: 30rpx;
-}
-
-.label {
-	font-size: 30rpx;
-	color: rgba(0,0,0,0.84);
-	width: 160rpx;
-	padding-left: 40rpx;
-	text-align: right;
-}
-
-.bdb {
-	border-bottom: 1rpx solid rgba(0, 0, 0, .08);
-}
-
-.mt20 {
-	margin-top: 20rpx;
-}
-
-.sub-btn {
-	width: 580rpx;
+.cropper {
+  width: 750rpx;
+  height: 1000rpx;
 }
