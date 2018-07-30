@@ -19,6 +19,16 @@ Page({
       }
     });
   },
+  test(ctx) {
+    wx.downloadFile({
+      url: 'https://cdn6.rabbitpre.com/32377b79-d9fb-4dc9-9462-1282488054c0',
+      success: function(res) {
+        res.tempFilePath
+        ctx.drawImage(res.tempFilePath, 0, 0, 100, 100);
+        ctx.draw();
+      }
+    })
+  },
   save() {
     this.wecropper.getCropperImage(function(file) {
       wx.saveImageToPhotosAlbum({
@@ -65,8 +75,7 @@ Page({
         })
       })
       .on('beforeDraw', ctx => {
-        ctx.fillStyle="#FF0000";
-        ctx.fillRect(0, 0, 100, 100);
+        self.test(ctx);
       })
       .on('imageLoad', (ctx) => {
         console.log(`picture loaded`);
